@@ -16,6 +16,9 @@ if __name__ == '__main__' :
 
 	# launch a window to select region to grabcut
 	cv2.namedWindow("Image",2)
+	
+	# resize it to fit on screen
+	cv2.resizeWindow("Image", 500, 500)
 	r = cv2.selectROI("Image", img, False, False)
 
 	mask = np.zeros(img.shape[:2],np.uint8)
@@ -36,12 +39,12 @@ if __name__ == '__main__' :
 	cv2.imwrite('grabcut-mask.jpg', mask2)
 
 	# generate mask from grabcut output
-	cmd = ['/usr/local/bin/mogrify', '-fuzz', '2%', '-fill', 'white', '-opaque', '#060606', 'grabcut-mask.jpg']
+	cmd = ['/usr/bin/mogrify', '-fuzz', '2%', '-fill', 'white', '-opaque', '#060606', 'grabcut-mask.jpg']
 
 	subprocess.call(cmd, shell=False)
 
 	# apply mask using imagemagick
-	cmd = ['/usr/local/bin/convert', outputfile, 'grabcut-mask.jpg', '-alpha', 'off', '-compose', 'CopyOpacity', '-composite', '-trim', outputfile]
+	cmd = ['/usr/bin/convert', outputfile, 'grabcut-mask.jpg', '-alpha', 'off', '-compose', 'CopyOpacity', '-composite', '-trim', outputfile]
 
 	subprocess.call(cmd, shell=False)
 
