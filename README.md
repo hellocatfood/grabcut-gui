@@ -2,6 +2,10 @@
 
 An implementation of grabcut that allows you to select a region using a GUI. 
 
+# Dependencies
+python3-opencv
+python3-matplotlib
+
 # Usage
 
 python grabcut.py inputimage
